@@ -1,0 +1,101 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+#include "ui_mp/menustyle.inc"
+#include "ui_mp/choices_setup_teams.menu"
+	
+	#ifndef MAP_WIDTH
+	#define MAP_WIDTH				420
+	#endif
+
+#define MAP_OFFSET	    (-(MAP_WIDTH/2)) (-(MAP_WIDTH/2))
+{
+   menuDef
+    {
+        name            "shoutcast_map"
+		rect            0 0 640 480
+		style           WINDOW_STYLE_EMPTY
+		focuscolor      COLOR_FOCUSED
+		blurWorld       7.0
+		
+		onClose
+		{
+			open shoutcast;
+		}
+        onEsc
+        {
+            close self;
+        }
+		#include "ui_mp/emzui/ingamebg.inc"
+
+        #define ORIGIN_BANNER       108 48
+
+
+		itemDef
+		{
+			rect 48 30 0 0
+			exp	text		getmapname()
+			textfont		UI_FONT_NORMAL
+			forecolor       COLOR_TITLE
+			textscale		TEXTSIZE_TITLE
+			textStyle 		6
+			visible			1
+			decoration
+		}
+
+		#define BACK_OPEN    shoutcast;
+        #include "ui_mp/navcontrols.inc"
+
+		itemDef
+		{
+			rect			MAP_OFFSET MAP_WIDTH MAP_WIDTH HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+			origin			0 0
+			forecolor		1 1 1 1
+			background		"compass_map_default"
+			ownerdraw		CG_PLAYER_FULLMAP_MAP
+			visible			1
+			decoration
+		}
+
+		itemDef
+		{
+			rect			MAP_OFFSET MAP_WIDTH MAP_WIDTH HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+			origin			0 0
+			forecolor		1 1 1 1
+			background		"objective_line"
+			ownerdraw		CG_PLAYER_FULLMAP_POINTERS
+			visible			1
+			decoration
+		}
+
+		itemDef
+		{
+			rect			MAP_OFFSET MAP_WIDTH MAP_WIDTH HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+			origin			0 0
+			forecolor		1 1 1 1
+			ownerdraw		185
+			visible			1
+			decoration
+		}
+
+		itemDef
+		{
+			rect			MAP_OFFSET MAP_WIDTH MAP_WIDTH HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+			origin			0 0
+			forecolor		1 1 1 1
+			ownerdraw		188
+			visible			1
+			decoration
+		}
+
+		itemDef
+		{
+			rect			MAP_OFFSET MAP_WIDTH MAP_WIDTH HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+			origin			0 0
+			forecolor		1 1 1 1
+			background		"compassping_player"
+			ownerdraw		CG_PLAYER_FULLMAP_PLAYER
+			visible			1
+			decoration
+		}		
+	}
+}

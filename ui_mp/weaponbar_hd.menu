@@ -1,0 +1,272 @@
+{
+	menuDef
+	{
+		name "weaponbar_hd"
+		rect 0 -20 640 480 4 4
+		visible 1
+		forecolor 1 1 1 1
+		visible when ( ( ( ! ( ui_active( ) ) ) && ( ! ( dvarbool( "g_hardcore" ) ) ) && ( ! ( flashbanged( ) ) ) && ( ! ( ( weaponname( ) == "killstreak_ac130_mp" ) || ( weaponname( ) == "killstreak_helicopter_minigun_mp" ) || ( weaponname( ) == "killstreak_predator_missile_mp" ) || ( ( weaponname( ) == "ac130_105mm_mp" ) || ( weaponname( ) == "ac130_40mm_mp" ) || ( weaponname( ) == "ac130_25mm_mp" ) ) || ( adsjavelin( ) ) || ( weaponname( ) == "heli_remote_mp" ) || missilecam( ) ) ) && ( !isempjammed( ) ) && ( ! ( dvarint( "scr_gameended" ) ) ) ) && ! ( selecting_location( ) ) && ( ! ( spectatingfree( ) ) ) )
+		itemDef
+		{
+			rect -349.333 -56 349.333 56 10 10
+			style 3
+			decoration
+			visible 1
+			forecolor 1 1 1 0.65
+			background "hud_weaponbar"
+			textscale 0.55
+		}
+		//graphical ammo counter
+		itemDef
+		{
+			rect -136 -12.6667 37.3333 0.666667 10 10
+			ownerdraw 119 
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			type 8
+			textfont 9
+			textscale 0.5833
+			textstyle 6
+			visible when ( ( player( "stockAmmo" ) ) < 100 && !dvarint( cg_drawbreathhint ) )
+		}
+		itemDef
+		{
+			rect -128 -12.6667 37.3333 0.666667 10 10
+			ownerdraw 119 
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			type 8
+			textfont 9
+			textscale 0.437475
+			textstyle 6
+			visible when ( ( player( "stockAmmo" ) ) >= 100 && !dvarint( cg_drawbreathhint ))
+		}
+		//numerical ammo counter
+		//stock >= 100
+		itemDef
+        {
+            name            "clipText"
+            rect            -146 -14 53.3333 0.666667 10 10  
+            textscale       0.333
+            textstyle       3	
+            textfont        6	
+            forecolor       1 1 1 1
+            ownerdraw       5	
+            visible         when ( dvarint( cg_drawbreathhint ) )
+            decoration
+        }
+		itemDef
+		{
+			name "offhandFragIcon"
+			rect -104 -12 18.6667 18.6667 10 10
+			ownerdraw 103
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			type 8
+			textscale 0.55
+		}
+		//frag count
+		itemDef
+		{
+			name			"offHandFragAmmo"
+			rect -90.5 10 18.6667 18.6667 10 10
+			textscale		0.28 
+			textstyle		3 
+			textfont		6 
+			forecolor		1 1 1 1 
+			ownerdraw		105
+			visible			1
+			decoration
+		}
+		//smoke count
+		itemDef
+		{
+			name "offhandSmokeIcon"
+			rect -125.333 -12 18.6667 18.6667 10 10
+			ownerdraw 104
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			type 8
+			textscale 0.55
+		}
+		itemDef
+		{
+			name			"offHandSmokeAmmo"
+			rect			-111.6 10 18.6667 18.6667 10 10
+			textscale       0.28 
+			textstyle		3
+			textfont		6	
+			forecolor		1 1 1 1
+			ownerdraw		106
+			visible			1
+			decoration
+		}
+		itemDef
+		{
+			name "clipGraphic"
+			rect -130 -22.6667 0 0 10 10
+			ownerdraw 117 
+			decoration
+			visible 1
+			forecolor 1 1 1 0.65
+			type 8
+			textscale 0.55
+			visible when( !dvarint( cg_drawbreathhint ) ) //added
+		}
+		itemDef
+		{
+			name "clipGraphic"
+			rect -130 -5.3333 0 0 10 10
+			ownerdraw 121 //weapon name
+			decoration
+			visible 1
+			forecolor 1 1 1 0.65
+			type 8
+			textscale 0.55
+		}
+		//ALIVE COUNTER
+		//friendlies
+		itemDef
+        {
+            name            "aliveaxis"
+            rect			-167.333 7.5 1 1 10 10 
+            textscale       0.46
+            textstyle       3
+            textfont        1 //UI_FONT_NORMAL 6
+			forecolor       0.660 0.835 0.685 1
+			exp text		dvarInt(self_alive)
+            visible         when( dvarstring("g_gametype") != "ffa" )
+            decoration
+        }
+		//enemies
+		itemDef
+        {
+            name            "aliveallies"
+            rect			-148.333 7.5 1 1 10 10  
+            textscale       0.46
+            textstyle       3
+            textfont        1	
+            forecolor       0.9 0.685 0.660 1
+			exp text		dvarInt(opposing_alive)
+            visible         when( dvarstring("g_gametype") != "ffa" )
+            decoration
+        }
+		itemDef
+		{
+			rect -102.667 -32.6667 37.3333 0.666667 10 10
+			ownerdraw 83
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			type 8
+			textfont 10
+			textalign 2
+			textscale 0.3333
+			textstyle 3
+			visible when ( inkillcam( ) || spectatingclient( ) )
+		}
+		itemDef
+		{
+			rect -102.667 -32.6667 37.3333 0.666667 10 10
+			ownerdraw 81
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			type 8
+			textfont 10
+			textalign 2
+			textscale 0.3333
+			textstyle 3
+			visible when ( ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			name "lowammowarning"
+			rect -50 0 100 100 2 2
+			ownerdraw 120
+			decoration
+			visible 1
+			forecolor 1 1 1 0.65
+			type 8
+			textfont 9
+			textalign 9
+			textscale 0.3333
+			textstyle 3
+			visible when ( ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			name "Shadow_Pass1"
+			rect -108 -77 126 126 10 10
+			style 3
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			background "hud_compass_alpha"
+			textscale 0.55
+		}
+		itemDef
+		{
+			name "Shadow_Pass2"
+			rect -108 -77 126 126 10 10
+			ownerdraw 166
+			decoration
+			visible 1
+			forecolor 1 1 1 0.75
+			background "hud_compass_letters_shadow_step2"
+			type 8
+			textscale 0.55
+		}
+		itemDef
+		{
+			name "Shadow_Pass3"
+			rect -108 -77 126 126 10 10
+			ownerdraw 166
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			background "hud_compass_letters_shadow_step3"
+			type 8
+			textscale 0.55
+		}
+		itemDef
+		{
+			name "Pass1"
+			rect -109 -78 126 126 10 10
+			style 3
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			background "hud_compass_alpha"
+			textscale 0.55
+		}
+		itemDef
+		{
+			name "Pass2"
+			rect -109 -78 126 126 10 10
+			ownerdraw 166
+			decoration
+			visible 1
+			forecolor 1 1 1 0.75
+			background "hud_compass_letters_step2"
+			type 8
+			textscale 0.55
+		}
+		itemDef
+		{
+			name "Pass3"
+			rect -109 -78 126 126 10 10
+			ownerdraw 166
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			background "hud_compass_letters_step3"
+			type 8
+			textscale 0.55
+		}
+	}
+}

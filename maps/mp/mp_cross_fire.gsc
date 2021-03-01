@@ -1,0 +1,1 @@
+main(){maps\mp\_load::main();maps\animated_models\foliage_palmtree_tall1::main();maps\animated_models\foliage_palmtree_bushy1::main();common_scripts\_destructible_types_anim_airconditioner::main();maps\mp\_compass::setupMiniMap("compass_map_mp_cross_fire");game["attackers"]="axis";game["defenders"]="allies";setdvar("compassmaxrange","2100");}

@@ -1,0 +1,1 @@
+main(){maps\mp\mp_fuel2_precache::main();maps\mp\_load::main();maps\mp\_compass::setupMiniMap("compass_map_mp_fuel2");game["attackers"]="allies";game["defenders"]="axis";}

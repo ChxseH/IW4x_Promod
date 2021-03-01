@@ -1,0 +1,2 @@
+#include maps\mp\_utility;
+main(){maps\mp\mp_compact_precache::main();maps\mp\_destructible_dlc::main();maps\mp\_load::main();maps\mp\_compass::setupMiniMap("compass_map_mp_compact");setdvar("r_lightGridEnableTweaks",1);setdvar("r_lightGridIntensity",1.10);setdvar("r_lightGridContrast",1);setdvar("compassmaxrange","1700");game["attackers"]="allies";game["defenders"]="axis";}

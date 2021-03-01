@@ -1,0 +1,2 @@
+#include maps\mp\_utility;
+main(){maps\mp\mp_nightshift_precache::main();maps\mp\_load::main();maps\mp\_compass::setupMiniMap("compass_map_mp_nightshift");setdvar("compassmaxrange","2400");VisionSetNaked("mp_nightshift");game["attackers"]="axis";game["defenders"]="allies";setdvar("r_lightGridEnableTweaks",1);setdvar("r_lightGridIntensity",1.2);setdvar("r_lightGridContrast",1);level.airstrikeHeightScale=1.5;}

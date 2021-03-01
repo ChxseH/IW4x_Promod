@@ -1,0 +1,22 @@
+#include "ui/menudef.h"
+{
+	menuDef
+	{
+	name "hold_breath_hint"
+	rect            0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+	fullScreen      0
+	visible 1
+
+		itemDef
+		{
+			rect			58 478 0 0
+			textscale       0.35
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textfont        UI_FONT_NORMAL
+			forecolor		1 1 .75 1
+			exp text        dvarString( promod_hud_website )
+			visible			when( dvarString( promod_hud_website ) != "" && ( dvarint( ui_hud_hardcore ) == 0 ) &&  team( name )!= "TEAM_SPECTATOR" && !inkillcam() && !ui_active() && ( dvarint( cg_drawSpectatorMessages ) == 1 ) && !flashbanged() );
+			decoration
+		}
+	}
+}

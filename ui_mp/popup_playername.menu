@@ -1,0 +1,87 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+#define OPTIONS_STYLE                   1
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+{
+        menuDef
+        {
+                name options_promod_binds
+                fullscreen 0
+                rect 0 0 640 480
+                foreColor 1 1 1 1
+                onOpen
+                {
+                        close pc_options_video;
+                        close pc_options_audio;
+                        close pc_options_voice;
+                        close pc_options_movement;
+                        close pc_options_look;
+                        close pc_options_actions;
+                        close controls_multi;
+                        close options_graphics;
+                        close options_graphics_texture;
+                        close options_promod;
+                        close options_graphics_defaults;
+                        close options_control_defaults;
+                        
+                        setLocalVarBool ui_hideBack 1;
+                }
+                onClose
+                {
+                        setLocalVarBool ui_hideBack 1;
+                }
+                onESC
+                {
+                        close self;
+                }
+                focusColor 1 1 1 1
+                #include "ui/blurredbg.inc"
+				
+                #define BACK_OPEN	;
+				#include "ui_mp/navcontrols.inc"
+				
+                itemDef
+                {
+                        rect 48 40 0 0
+                        foreColor 1 0.8 0.4 1
+                        decoration 
+                        textAlign 4
+                        textAlignX -36
+                        textAlignY -36
+                        textScale 0.5833
+                        textStyle 6
+                        textFont 1
+                        visible 1
+                        exp text ( "@MENU_CONTROLS" )
+                }
+                
+                #include "ui_mp/leftside_controls.inc"
+                #undef CHOICE_TEXTSIZE
+                #define CHOICE_TEXTSIZE 0.33
+                
+                CHOICE_SECTION_TITLE( 21, "Promod Bindings" )
+				
+				CHOICE_BIND( 22, "Assault Class", "openscriptmenu quickpromod assault", ; )
+				CHOICE_BIND( 23, "Spec Ops Class", "openscriptmenu quickpromod specops", ; )
+				CHOICE_BIND( 24, "Demolitions Class", "openscriptmenu quickpromod demolitions", ; )
+				CHOICE_BIND( 25, "Sniper Class", "openscriptmenu quickpromod sniper", ; )
+				CHOICE_BIND( 26, "Change Class Menu", "openscriptmenu quickpromod x", ; )
+				
+				CHOICE_BIND( 28, "Call Timeout", "openscriptmenu quickpromod 1", ; )
+                CHOICE_BIND( 29, "Drop Bomb", "openscriptmenu quickpromod 2", ; )
+                CHOICE_BIND( 30, "Suicide", "openscriptmenu quickpromod 3", ; )
+				CHOICE_BIND( 31, "Killspec", "openscriptmenu quickpromod killspec", ; )
+				CHOICE_BIND( 32, "@MENU_QUICK_CHAT", "+mp_quickmessage", ; )
+                
+				CHOICE_BIND( 34, "Toggle Grenade", "openscriptmenu quickpromod grenade", ; )
+                CHOICE_BIND( 35, "Toggle Silencer", "openscriptmenu quickpromod silencer", ; )
+                CHOICE_BIND( 36, "Toggle FOV Scale", "openscriptmenu quickpromodgfx 3", ; )
+                CHOICE_BIND( 37, "Toggle Normal Map", "openscriptmenu quickpromodgfx 2", ; )
+                CHOICE_BIND( 38, "Toggle Film Tweaks", "openscriptmenu quickpromodgfx 1", ; )
+                CHOICE_BIND( 39, "Loop through Blur", "openscriptmenu quickpromodgfx 4", ; )
+
+                CHOICE_KEYBINDHELP
+        }
+}

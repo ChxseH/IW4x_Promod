@@ -1,0 +1,23 @@
+{
+	menuDef
+	{
+		name "safearea_hd"
+		fullscreen 0
+		rect 0 0 640 480 4 4
+		style 0
+		border 0
+		ownerdraw 0
+		ownerdrawFlag 0
+		borderSize 0
+		foreColor 1 1 1 1
+		backColor 0 0 0 0
+		borderColor 0 0 0 0
+		outlineColor 0 0 0 0
+		fadeCycle 0
+		fadeClamp 0
+		fadeAmount 0
+		fadeInAmount 0
+		blurWorld 0
+		focusColor 0 0 0 0
+	}
+}

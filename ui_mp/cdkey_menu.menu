@@ -1,0 +1,117 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+#define OPTIONS_STYLE 1
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+
+{
+        menuDef
+        {
+                name options_promod
+                fullscreen 0
+                rect 0 0 640 480
+                foreColor 1 1 1 1
+                focusColor 1 1 1 1
+                onOpen
+                {
+                        close pc_options_video;
+                        close pc_options_audio;
+                        close pc_options_controls;
+                        close pc_options_voice;
+                        close options_graphics_texture;
+                        close options_voice;
+                        close options_graphics_defaults;
+
+                        ExecNow "profile_menuDvarsSetup; resetViewPort";
+                        setLocalVarBool ui_hideBack 1;
+
+                        if (!localvarint("ui_showApply") && !localvarint("ui_showPicApply"))
+                        {
+                                exec "exec options_graphics.cfg";
+                        }
+
+                        ExecNow "profile_menuDvarsSetup; resetViewport";
+                }
+                onClose
+                {
+                        ExecNow "profile_menuDvarsFinish; resetViewport";
+                        setLocalVarBool ui_hideBack 1;
+                        execondvarintvalue "r_lodScaleRigid" 2 "set r_lodScaleSkinned 4; set r_lodBiasSkinned -200; set r_lodBiasRigid -100";
+                        execondvarintvalue "r_lodScaleRigid" 1 "set r_lodScaleSkinned 1; set r_lodBiasSkinned 0; set r_lodBiasRigid 0";
+                }
+                onEsc
+                {
+                        close self;
+                        if ( !( menuisopen( "pc_options_advanced_video" ) || menuisopen( "pc_options_video" ) || menuisopen( "pc_options_Audio" ) || menuisopen( "pc_options_controls" ) || menuisopen( "pc_options_voice" ) ) && localvarbool( "ui_showPicApply" ) && !localvarbool( "ui_showApply" ) && !localvarbool( "ui_showAudioApply" )  )
+                        {
+                                execnow "setfromdvar r_picmip ui_r_picmip";
+                                execnow "setfromdvar r_picmip_bump ui_r_picmip_bump";
+                                execnow "setfromdvar r_picmip_spec ui_r_picmip_spec";
+                                execnow "setfromdvar r_picmip_manual ui_r_picmip_manual";
+                                exec "wait; wait; r_applyPicmip";
+                                setLocalVarBool ui_showPicApply 1;
+                        }
+                        if ( !( menuisopen( "pc_options_advanced_video" ) || menuisopen( "pc_options_video" ) || menuisopen( "pc_options_Audio" ) || menuisopen( "pc_options_controls" ) || menuisopen( "pc_options_voice" ) ) && localvarbool( "ui_showApply" ) || localvarbool( "ui_showAudioApply" )  )
+                        {
+                                open all_restart_popmenu;
+                        }
+                        ExecNow "profile_menuDvarsFinish; resetViewport";
+                }
+
+                focusColor 1 1 1 1
+                #include "ui/blurredbg.inc"
+
+				#define BACK_OPEN	;
+				#include "ui_mp/navcontrols.inc"
+
+
+                itemDef
+                {
+                        rect 48 40 0 0
+                        foreColor 1 0.8 0.4 1
+                        decoration
+                        textAlign 4
+                        textAlignX -36
+                        textAlignY -36
+                        textScale 0.5833
+                        textStyle 6
+                        textFont 1
+                        visible 1
+                        exp text ( "@MENU_OPTIONS"  )
+                }
+
+                #include "ui_mp/leftside_options.inc"
+
+                #undef CHOICE_SIZE_Y
+                #define CHOICE_SIZE_Y 18
+
+                #undef CHOICE_TEXTSIZE
+                #define CHOICE_TEXTSIZE 0.33
+
+                CHOICE_SECTION_TITLE( 21, "Promod" )
+                
+                #undef TEXTSIZE_DEFAULT
+                #define TEXTSIZE_DEFAULT 0.4
+
+                CHOICE_SECTION_TITLE( 22, "Visual Settings" )
+				CHOICE_DVARYESNO( 23, "Numerical Ammo Counter", cg_drawbreathhint, ;)
+                CHOICE_DVARFLOATLIST( 24, "Field of View", cg_fov, { "65" 65 "80" 80 }, ; )
+				CHOICE_DVARFLOATLIST( 25, "FOV Scale", cg_fovScale, { "1.0" 1.0 "1.125" 1.125 }, ; )
+                CHOICE_DVARFLOATLIST( 26, "Max FPS", com_maxfps, { "100" 100 "125" 125 "200" 200 "250" 250 }, ; )
+                CHOICE_DVARSTRINGLIST( 27, "FPS Counter", cg_drawfps, { "Off"; "Off"; "Simple"; "Simple"; "SimpleRanges"; "SimpleRanges"; "Verbose"; "Verbose"; "Verbose+Viewpos"; "Verbose+Viewpos" }, ; )
+                CHOICE_DVARYESNO( 28, "FPS Labels", cg_drawfpslabels, ; )
+
+                CHOICE_SECTION_TITLE( 29, "Network Settings" )
+                CHOICE_DVARYESNO( 30, "Draw Lagometer", drawlagometer, ; )
+				CHOICE_DVARFLOATLIST( 31, "Duplicate Packets", cl_packetdup, { "0" 0 "1" 1 "2" 2 "3" 3 "4" 4 "5" 5 }, ; )
+                CHOICE_DVARSLIDER( 32, "Max Packets", cl_maxpackets, 60, 60, 100, ; )
+                CHOICE_DVARFLOATLIST( 33, "Snaps", snaps, { "20" 20 "30" 30 }, ; )
+
+                CHOICE_SECTION_TITLE( 34, "Performance Settings" )
+                CHOICE_DVARYESNO( 35, "Draw Sun", r_drawsun, ; )
+                CHOICE_DVARYESNO( 36, "Draw Blood", cg_blood, ; )
+                CHOICE_DVARYESNO( 37, "Eject Brass", cg_brass, ; )
+				CHOICE_DVARYESNO( 38, "Explosion Distortion", r_distortion, ; )
+        }
+}

@@ -1,0 +1,1 @@
+main(){maps\mp\mp_derail_precache::main();maps\mp\_load::main();maps\mp\_compass::setupMiniMap("compass_map_mp_derail");game["attackers"]="allies";game["defenders"]="axis";setdvar("r_specularcolorscale","2.3");setdvar("compassmaxrange","4000");setdvar("r_lightGridEnableTweaks",1);setdvar("r_lightGridIntensity",1);setdvar("r_lightGridContrast",.4);}

@@ -1,0 +1,3 @@
+#include maps\mp\_utility;
+#include common_scripts\utility;
+main(){maps\mp\mp_afghan_precache::main();maps\mp\_explosive_barrels::main();maps\mp\_load::main();maps\mp\_compass::setupMiniMap("compass_map_mp_afghan");setdvar("compassmaxrange","3000");game["attackers"]="allies";game["defenders"]="axis";setdvar("r_lightGridEnableTweaks",1);setdvar("r_lightGridIntensity",1.2);setdvar("r_lightGridContrast",0);}

@@ -1,0 +1,87 @@
+#include "ui/menudef.h"
+
+	#define DVAR_ENFORCER_ITEM(itemIndex,textArg,visArg) \
+		itemDef \
+		{ \
+			rect		0 (25*itemIndex) 1 1 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_TOP \
+			origin		0 0 \
+			forecolor	1 0 0 1 \
+			backcolor	1 0 0 1 \
+			exp text	(textArg) \
+			textfont	UI_FONT_OBJECTIVE \
+			textscale	0.5 \
+			textalign	ITEM_ALIGN_CENTER \
+			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE \
+			visible		when( visArg ) \
+			decoration \
+		}
+		
+	#define FPS ( dvarstring("com_maxfps") > 250 || dvarstring("com_maxfps") < 40 )
+	#define MAXPACKETS  ( dvarstring("cl_maxpackets") > 100 || dvarstring("cl_maxpackets") < 60 )
+	#define NOPREDICT	( dvarstring("cg_nopredict") != "0" )
+	#define DEVELOPER	( dvarstring("developer") != "0" )
+	#define FBRIGHT		( dvarstring( "r_fullbright" ) != "0" )
+	#define	FX	( dvarstring( "fx_enable" ) != "1" || dvarstring( "fx_draw" ) != "1" )
+	#define GLOW	( dvarstring( "r_glow" ) != "1" )
+	#define FOV	( dvarfloat( cg_fov ) * dvarfloat(cg_fovScale) > 90 )
+	#define MAXFOVSCALE	( dvarfloat(cg_fovScale) > 1.125 )
+	#define	DYNENT	( dvarstring("dynent_active") != 0 )
+	#define	PHYS	( dvarstring("phys_gravity") != "-800" )
+	#define ZFEATHER	( dvarstring("r_zfeather") != "0" )
+	#define SHADOW	( dvarstring("sm_enable") != "0" )
+		
+{
+    menuDef
+    {
+        name perks_info_hd
+        rect            0 0 640 480
+        focuscolor         1 1 1 1
+        style              WINDOW_STYLE_EMPTY
+        soundloop			""
+		onOpen{ setdvar "ui_initialized" 1; }
+        visible when ( FPS || MAXPACKETS || NOPREDICT || DEVELOPER || FBRIGHT || FX || GLOW || FOV || MAXFOVSCALE || DYNENT || PHYS || ZFEATHER || SHADOW )
+		
+	#define DONT_DO_THE_SIDEBAR_THINGY
+    #define DO_THE_CHICKEN_WING
+    #include "ui_mp/bg.inc"
+	
+    itemDef    
+	{
+    style            	WINDOW_STYLE_FILLED
+    rect            	0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+    backcolor        	0 0 0 0.25
+    background 			logo_cod2
+    visible             1             
+	decoration
+    }
+
+    itemDef    
+	{
+    style            WINDOW_STYLE_SHADER
+    rect          	 0 0 854 75 HORIZONTAL_ALIGN_FULLSCREEN 0
+    background       "gradient_top"
+    visible          1
+    decoration
+    }
+    itemDef    
+	{             
+	style            WINDOW_STYLE_SHADER
+    rect           	 0 405 854 75 HORIZONTAL_ALIGN_FULLSCREEN 0
+    background       "gradient_bottom"
+    visible          1
+    decoration
+    }
+			
+	DVAR_ENFORCER_ITEM(1,"SET COM_MAXFPS WITHIN 40-250 (Type /com_maxfps 125 in console)",FPS)
+	DVAR_ENFORCER_ITEM(2,"SET Cl_MAXPACKETS WITHIN 60-100 (Type /cl_maxpackets 100 in console)",MAXPACKETS)
+	DVAR_ENFORCER_ITEM(3,"SET DYNENT_ACTIVE TO 0 (Type /dynent_active 0 in console)",DYNENT)
+	DVAR_ENFORCER_ITEM(4,"SET CG_FOV 65-80 WHEN CG_FOVSCALE 1.125 (Type /cg_fov 80 in console)", FOV)
+	DVAR_ENFORCER_ITEM(5,"SET CG_FOVSCALE <= 1.125 (Type /cg_fovscale 1 in console)", MAXFOVSCALE)
+	DVAR_ENFORCER_ITEM(6,"SET CG_NOPREDICT TO 0 (Type /cg_nopredict 0 in console)",NOPREDICT)
+	DVAR_ENFORCER_ITEM(7,"SET DEVELOPER TO 0 (Type /developer 0 in console)",DEVELOPER)
+	DVAR_ENFORCER_ITEM(8,"SET R_ZFEATHER TO 0 (Type /r_zfeather 0 in console)",ZFEATHER)
+	DVAR_ENFORCER_ITEM(9,"SET PHYS_GRAVITY TO -800 (Type /phys_gravity -800 in console)", PHYS)
+	DVAR_ENFORCER_ITEM(10,"SET SM_ENABLE TO 0 (Type /sm_enable 0 in console)", SHADOW)
+	DVAR_ENFORCER_ITEM(11,"SET R_FULLBRIGHT TO 0 (Type /r_fullbright 0 in console)", FBRIGHT)
+    }
+}

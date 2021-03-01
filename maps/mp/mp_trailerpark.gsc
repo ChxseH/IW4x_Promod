@@ -1,0 +1,1 @@
+main(){maps\mp\mp_trailerpark_precache::main();maps\mp\_destructible_dlc2::main();maps\mp\_destructible_dlc::main();maps\mp\_load::main();maps\mp\_compass::setupMiniMap("compass_map_mp_trailerpark");setdvar("r_lightGridEnableTweaks",1);setdvar("r_lightGridIntensity",1.33);setdvar("compassmaxrange","1700");game["attackers"]="allies";game["defenders"]="axis";}

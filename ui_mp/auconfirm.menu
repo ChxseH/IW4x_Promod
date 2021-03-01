@@ -1,0 +1,194 @@
+#include "ui/menudef.h"
+ 
+{
+        menuDef
+        {
+                name    "auconfirm"
+                fullscreen 0
+                rect 204 160 235 135
+                focusColor COLOR_FOCUSED
+                style 1
+                border 1
+                popup
+
+                onESC
+                {
+                        close auconfirm;
+                }
+                itemDef
+                {
+                        rect 0 2 235 135
+                        style WINDOW_STYLE_FILLED
+                        border 1
+						borderSize 1.5
+                        bordercolor .5 .5 .5 .5
+                        backcolor 0 0 0 .85
+                        visible 1
+                        decoration
+                }
+                itemDef
+                {
+                        rect 2 4 231 20
+                        style WINDOW_STYLE_FILLED
+                        backcolor 0 0 0 0
+                        visible 1
+                        decoration
+                }
+                itemDef
+                {
+                        text "Promod"
+                        style 0
+                        textscale .25
+                        textstyle 3
+                        rect 116 20 110 20
+                        textalign ITEM_ALIGN_CENTER
+                        textalignx -55
+                        textaligny 0
+                        textfont UI_FONT_NORMAL
+                        decoration
+                        forecolor 1 1 1 1
+                        visible 1
+                }
+                itemDef
+                {
+                        text "chse.xyz/donate"
+                        style 0
+                        textscale .20
+                        textstyle 3
+                        rect 116 28 110 20
+                        textalign ITEM_ALIGN_CENTER
+                        textalignx -55
+                        textaligny 0
+                        textfont UI_FONT_NORMAL
+                        decoration
+                        forecolor 1 1 1 1
+                        visible 1
+                }
+                itemDef
+                {
+                        text ""
+                        style 0
+                        textscale .25
+                        textstyle 3
+                        rect 35 43 110 20
+                        textalign ITEM_ALIGN_LEFT
+                        textalignx 0
+                        textaligny 0
+                        textfont UI_FONT_NORMAL
+                        decoration
+                        forecolor 1 1 1 1
+                        visible 1
+                }
+                itemDef
+                {
+                        text ""
+                        style 0
+                        textscale .25
+                        textstyle 3
+                        rect 35 53 110 20
+                        textalign ITEM_ALIGN_LEFT
+                        textalignx 0
+                        textaligny 0
+                        textfont UI_FONT_NORMAL
+                        decoration
+                        forecolor 1 1 1 1
+                        visible 1
+                }
+               
+                itemDef
+                {
+                        text ""
+                        style 0
+                        textscale .25
+                        textstyle 3
+                        rect 35 63 110 20
+                        textalign ITEM_ALIGN_LEFT
+                        textalignx 0
+                        textaligny 0
+                        textfont UI_FONT_NORMAL
+                        decoration
+                        forecolor 1 1 1 1
+                        visible 1
+                }
+                itemDef
+                {
+                        text ""
+                        style 0
+                        textscale .25
+                        textstyle 3
+                        rect 35 73 110 20
+                        textalign ITEM_ALIGN_LEFT
+                        textalignx 0
+                        textaligny 0
+                        textfont UI_FONT_NORMAL
+                        decoration
+                        forecolor 1 1 1 1
+                        visible 1
+                }
+                itemDef
+                {
+                        text ""
+                        style 0
+                        textscale .25
+                        textstyle 3
+                        rect 50 90 110 20
+                        textalign ITEM_ALIGN_LEFT
+                        textalignx 0
+                        textaligny 0
+                        textfont UI_FONT_NORMAL
+                        decoration
+                        forecolor 1 1 1 1
+                        visible 1
+                }
+                itemDef
+                {
+                        text ""
+                        style 0
+                        textscale .20
+                        textstyle 3
+                        rect 80 98 110 20
+                        textalign ITEM_ALIGN_LEFT
+                        textalignx 0
+                        textaligny 0
+                        textfont UI_FONT_NORMAL
+                        decoration
+                        forecolor 1 1 1 1
+                        visible 1
+                }
+                itemDef
+                {
+                        text ""
+                        style 0
+                        textscale .25
+                        textstyle 3
+                        rect 45 110 110 20
+                        textalign ITEM_ALIGN_LEFT
+                        textalignx 0
+                        textaligny 0
+                        textfont UI_FONT_NORMAL
+                        decoration
+                        forecolor 1 1 1 1
+                        visible 1
+                }
+                itemDef
+                {
+                        text "OK"
+                        type 1
+                        textscale .3
+                        style           WINDOW_STYLE_FILLED
+                        textstyle       ITEM_TEXTSTYLE_SHADOWED
+                        rect 90 115 50 20
+                        textalign ITEM_ALIGN_CENTER
+                        textaligny 15
+                        textfont UI_FONT_NORMAL
+                        forecolor .9 .9 .95 1
+                        visible 1
+                        mouseEnter
+                        {
+                                play "mouse_over";
+                        }
+                        action { play "mouse_click"; close auconfirm }         
+                }
+ 
+        }
+}

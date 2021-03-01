@@ -1,0 +1,86 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_SIZE_X           150
+#define CHOICE_SIZE_Y           22
+
+#define CHOICE_X_START          0
+#define CHOICE_Y_START          105
+
+#define CHOICE_GROUP            "shoutcast"
+#define CHOICE_SEP_1            5
+
+#include "ui_mp/menustyle.inc"
+#include "ui_mp/choices_setup_teams.menu"
+
+#define ORIGIN_DESCRIPTION      (CHOICE_X_START + 15) 190
+
+{
+    menuDef
+    {
+        name            "shoutcast"
+        rect            0 0 640 480
+        focuscolor      COLOR_FOCUSED
+        style           WINDOW_STYLE_EMPTY
+        blurWorld       7.0
+
+        onEsc
+        {
+            scriptMenuResponse "back";
+        }
+
+		#include "ui_mp/emzui/ingamebg.inc"
+
+        #define ORIGIN_BANNER       108 48
+
+
+		itemDef
+		{
+			rect 48 30 0 0
+			text			"Shoutcast"
+			textfont		UI_FONT_NORMAL
+			forecolor       COLOR_TITLE
+			textscale		TEXTSIZE_TITLE
+			textStyle 		6
+			visible			1
+			decoration
+		}
+
+        #define BACK_OPEN   ;
+        #include "ui_mp/navcontrols.inc"
+
+        #undef  CHOICE_X_START
+        #define CHOICE_X_START  -320
+
+        #undef  CHOICE_HORIZONTAL_ALIGN
+        #define CHOICE_HORIZONTAL_ALIGN HORIZONTAL_ALIGN_CENTER 
+
+
+        #undef CHOICE_Y_START
+        #define CHOICE_Y_START          160
+
+		#define CHOICE_EMZ(itemNum,text,response) \
+		CHOICE_BUTTON_BG( itemNum, 0 ) \
+        CHOICE_HIGHLIGHT( itemNum, 0 ) \
+        CHOICE_BUTTON_NOHI( itemNum, text, response )
+		
+        CHOICE_EMZ( 3, "Spectate", execnow "openscriptmenu -1 shoutcaster"; close self; )
+
+        CHOICE_EMZ( 4, "Shoutcast Setup", open shoutcast_setup; close self;  )
+
+        CHOICE_EMZ( 5, "Overview Map", open shoutcast_map; close self; )
+
+        CHOICE_EMZ( 6, "Promod Graphics", open quickpromodgfx; )
+
+        CHOICE_EMZ( 7, "Change Team", close self; scriptmenuresponse "changeteam"; ) //open team_marinesopfor_mw can't find menu error :<
+
+        CHOICE_EMZ( 8, "Options", close self; open pc_options; execnow "set ui_allow_graphic_change 0"; )
+
+		CHOICE_BUTTON_BG( 9, 0 )
+        CHOICE_HIGHLIGHT( 9, 0 )
+        CHOICE_BUTTON_VIS_NOHI( 9, "@MENU_LEAVE_GAME", open popup_endgame, when( dvarbool( sv_running ) ) )
+        CHOICE_BUTTON_VIS_NOHI( 9, "@MENU_LEAVE_GAME", open popup_leavegame, when( !dvarbool( sv_running ) ) )
+
+    }
+}
+#include "ui/safearea_hd.menu"

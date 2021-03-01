@@ -1,0 +1,69 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+#define CHOICE_SIZE_X           150
+#define CHOICE_SIZE_Y           22
+#define CHOICE_X_START          0
+#define CHOICE_Y_START          204
+#define CHOICE_SEP_OFFSET_Y     -2
+#define CHOICE_SEP_1            3
+#include "ui_mp/menustyle.inc"
+#include "ui_mp/choices_setup_teams.menu"
+
+    menuDef
+    {
+        name            "team_marinesopfor_flipped"
+        rect            0 0 640 480
+        focuscolor      COLOR_FOCUSED
+        style           WINDOW_STYLE_EMPTY
+        blurWorld       7
+		onOpen 
+		{ if( dvarstring( "r_fullbright" ) == ""  || dvarstring( "sv_cheats" ) != "0"  || dvarstring("developer") != "0" || dvarstring( "ui_initialized" ) != "1"  || dvarstring( "com_maxfps" ) == "" || dvarstring( "fx_enable" ) != "1" || dvarstring( "r_glow" ) != "1" || dvarstring("phys_gravity") != "-800" ) { execNow "disconnect"; } exec "set sm_enable 0; set r_zfeather 0; set r_dlightLimit 0; set dynent_active 0"; if( dvarstring("cl_maxpackets") > "100" || dvarstring("cl_maxpackets") < "60" ) { exec "set cl_maxpackets 100"; } }
+		onEsc
+		{ scriptMenuResponse "back"; close self; }
+		
+		#include "ui_mp/emzui/ingamebg.inc"
+        #undef  CHOICE_X_START
+        #define CHOICE_X_START  -320
+        #undef  CHOICE_HORIZONTAL_ALIGN
+        #define CHOICE_HORIZONTAL_ALIGN HORIZONTAL_ALIGN_CENTER 
+
+		itemDef
+		{
+			rect 48 30 0 0
+			text			"@MPUI_CHOOSE_TEAM"
+			textfont		UI_FONT_NORMAL
+			forecolor       COLOR_TITLE
+			textscale		TEXTSIZE_TITLE
+			textStyle 		6
+			visible			1
+			decoration
+		}
+
+        #include "ui_mp/tactical_map.inc"
+        #define BACK_OPEN   ;
+        #include "ui_mp/navcontrols.inc"
+
+		CHOICE_HIGHLIGHT( 1, 0 )
+        CHOICE_BUTTON_VIS_NOHI( 1, "1. " + dvarString( g_TeamName_Axis ), play "mouse_click"; scriptMenuResponse "axis";, when( ( team( name ) == "TEAM_SPECTATOR" || team(name) == "TEAM_FREE" || team( name ) == "TEAM_ALLIES" ) ); )
+        CHOICE_DBUTTON_VIS_NOHI( 1, "1. " + dvarString( g_TeamName_Axis ), when( team( name ) == "TEAM_AXIS" ); )
+
+        CHOICE_HIGHLIGHT( 2, 0 )
+        CHOICE_BUTTON_VIS_NOHI( 2, "2. " + dvarString( g_TeamName_Allies ), play "mouse_click"; scriptMenuResponse "allies";, when( ( team( name ) == "TEAM_SPECTATOR" || team(name) == "TEAM_FREE" || team( name ) == "TEAM_AXIS" ) ); )
+        CHOICE_DBUTTON_VIS_NOHI( 2, "2. " + dvarString( g_TeamName_Allies ), when( team( name ) == "TEAM_ALLIES" ); )
+
+        CHOICE_HIGHLIGHT( 3, 0 )
+        CHOICE_BUTTON_VIS_NOHI( 3, "3. Auto-Assign", play "mouse_click"; scriptMenuResponse "autoassign";, 1 )
+
+        CHOICE_HIGHLIGHT( 4, 0 )
+        CHOICE_BUTTON_VIS_NOHI( 4, "4. Shoutcaster", play "mouse_click"; close self;scriptMenuResponse "spectator";, when( team( name ) != "TEAM_SPECTATOR" ); )
+        CHOICE_DBUTTON_VIS_NOHI( 4, "4. Shoutcaster", when( team( name ) == "TEAM_SPECTATOR" ); )
+
+        CHOICE_HIGHLIGHT( 5, when( team( name ) == "TEAM_FREE" ) )
+        CHOICE_BUTTON_VIS_NOHI( 5, "@MPUI_LEAVE_GAME", open popup_endgame, when(team(name) == "TEAM_FREE") )
+
+		execKey "1" { scriptMenuResponse "axis"; }
+        execKey "2" { scriptMenuResponse "allies"; }
+        execKey "3" { scriptMenuResponse "autoassign"; }
+        execKey "4" { scriptMenuResponse "spectator"; }
+    }
+#include "ui/safearea_hd.menu"

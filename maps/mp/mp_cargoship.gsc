@@ -1,0 +1,2 @@
+#include common_scripts\utility;
+main(){maps\mp\_load::main();maps\mp\_compass::setupMiniMap("compass_map_mp_cargoship");setdvar("compassmaxrange","4000");game["attackers"]="allies";game["defenders"]="axis";level.airstrikeHeightScale=1.8;}

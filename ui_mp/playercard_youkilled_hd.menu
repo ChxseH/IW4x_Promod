@@ -1,0 +1,22 @@
+#include "ui/menudef.h"
+
+{
+   menuDef
+   {
+      name         "playercard_youkilled_hd"
+      rect         0 180 0 0 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+      fullScreen      0
+      visible         1
+
+      itemDef 
+      {
+         name         "chRect"
+         rect         0 0 0 0
+         textscale      TEXTSIZE_DEFAULT
+         textstyle      ITEM_TEXTSTYLE_SHADOWED
+         ownerdraw      CG_CENTER_MESSAGE
+         visible         1
+         decoration
+      }
+   }
+}  

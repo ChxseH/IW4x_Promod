@@ -1,0 +1,25 @@
+#define REF_M9BERETTA					"beretta"
+#define REF_COLTANACONDA				"coltanaconda"
+#define REF_USP							"usp"
+#define REF_DESERTEAGLE					"deserteagle"
+#define REF_DESERTEAGLEGOLD				"deserteaglegold"
+#define STAT_PISTOL_M9BERETTA			tablelookup( "mp/statstable.csv", 4, REF_M9BERETTA, 0 )
+#define STAT_PISTOL_COLTANACONDA				tablelookup( "mp/statstable.csv", 4, REF_COLTANACONDA, 0 )
+#define STAT_PISTOL_USP					tablelookup( "mp/statstable.csv", 4, REF_USP, 0 )
+#define STAT_PISTOL_DESERTEAGLE			tablelookup( "mp/statstable.csv", 4, REF_DESERTEAGLE, 0 )
+#define STAT_PISTOL_DESERTEAGLEGOLD		tablelookup( "mp/statstable.csv", 4, REF_DESERTEAGLEGOLD, 0 )
+
+#define REF_SMOKE_X1					"smoke_grenade"
+#define REF_FLASH_X1					"flash_grenade"
+#define REF_CONCUSSION_X1				"concussion_grenade"
+#define STAT_SMOKE_X1					tablelookup( "mp/statstable.csv", 4, REF_SMOKE_X1, 0 )
+#define STAT_FLASH_X1					tablelookup( "mp/statstable.csv", 4, REF_FLASH_X1, 0 )
+#define STAT_CONCUSSION_X1				tablelookup( "mp/statstable.csv", 4, REF_CONCUSSION_X1, 0 )
+
+#define REF_SUPPRESSOR					"silencer"
+#define NUM_SUPPRESSOR					tablelookup( "mp/attachmenttable.csv", 4, REF_SUPPRESSOR, 9 )
+#define NAME_SUPPRESSOR					"@"+tablelookup( "mp/attachmenttable.csv", 4, REF_SUPPRESSOR, 3 )
+
+#define REF_ATTACHMENT_NONE				"none"
+#define NUM_NONE						tablelookup( "mp/attachmenttable.csv", 4, REF_ATTACHMENT_NONE, 9 )
+#define NAME_NONE						"@"+tablelookup( "mp/attachmenttable.csv", 4, REF_ATTACHMENT_NONE, 3 )

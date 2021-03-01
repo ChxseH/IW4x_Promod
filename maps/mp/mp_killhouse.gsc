@@ -1,0 +1,1 @@
+main(){maps\mp\_load::main();maps\mp\_compass::setupMiniMap("compass_map_mp_killhouse");game["attackers"]="allies";game["defenders"]="axis";setdvar("compassmaxrange","1800");}

@@ -1,0 +1,1 @@
+init(){}getkillstreaksound(){return"null";}

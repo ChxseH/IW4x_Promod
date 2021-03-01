@@ -1,0 +1,133 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_SIZE_X           150
+#define CHOICE_SIZE_Y           22
+
+#define CHOICE_X_START          0
+#define CHOICE_Y_START          105
+
+#define CHOICE_SEP_1            13
+
+#define CHOICE_GROUP            "shoutcast_setup"
+
+#include "ui_mp/menustyle.inc"
+#include "ui_mp/choices_setup_teams.menu"
+
+#define ORIGIN_DESCRIPTION      (CHOICE_X_START + 15) 190
+
+{
+	menuDef 
+	{
+		name			"shoutcast_setup"
+		fullScreen		0
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		blurWorld		7.0
+		
+		onClose
+		{
+		}
+        onEsc
+        {
+            close self;
+			open shoutcast;
+        }
+
+		#include "ui_mp/emzui/ingamebg.inc"
+
+        #define ORIGIN_BANNER       108 48
+
+
+		itemDef
+		{
+			rect 48 30 0 0
+			text			"Shoutcast Setup"
+			textfont		UI_FONT_NORMAL
+			forecolor       COLOR_TITLE
+			textscale		TEXTSIZE_TITLE
+			textStyle 		6
+			visible			1
+			decoration
+		}
+
+        #define BACK_OPEN   shoutcast;
+        #include "ui_mp/navcontrols.inc"
+
+        #undef  CHOICE_X_START
+        #define CHOICE_X_START  -300
+
+        #undef  CHOICE_HORIZONTAL_ALIGN
+        #define CHOICE_HORIZONTAL_ALIGN HORIZONTAL_ALIGN_CENTER
+
+        #undef CHOICE_Y_START
+        #define CHOICE_Y_START          30
+	
+		CHOICE_SECTION_TITLE( 1, dvarString(shout_attack_name) )
+		CHOICE_SECTION_TITLE( 7, dvarString(shout_defence_name) )
+
+		#define SHOUT_THING(itemNum,player,response,team) \
+		CHOICE_DBUTTON_VIS( itemNum, player+". No Player", when (dvarString("shout_"+team+player)=="" ) ) \
+		CHOICE_DBUTTON_VIS( itemNum, player+". "+dvarString("shout_"+team+player) + " (" + dvarString("shout_"+team+"class"+player) + ")" , when (dvarint("shout_"+team+"health"+player)== 0 && dvarString("shout_"+team+player)!="" ) ) \
+		CHOICE_BUTTON_VIS( itemNum, player+". "+dvarString("shout_"+team+player) + " (" + dvarString("shout_"+team+"class"+player) + ")" , exec "openscriptmenu shoutcast_setup "+response;, when (dvarint("shout_"+team+"health"+player)!= 0 && dvarString("shout_"+team+player)!="" ) )
+		
+		#define CHOC_SPEC( itemIndex, playr, num ) \
+		CHOICE_DBUTTON_VIS( itemIndex, "No Shoutcaster", when (dvarString("shout_spec"+playr)=="" ) ) \
+		CHOICE_DBUTTON_VIS( itemIndex, dvarstring(name), when (dvarString(name) == dvarString("shout_spec"+playr)) ) \
+		CHOICE_BUTTON_VIS( itemIndex, dvarString("shout_spec"+playr), scriptMenuResponse "shoutcast_setup "+num;, when (dvarString("shout_spec"+playr)!="" && dvarstring(name) != dvarString("shout_spec"+playr)) ) 
+
+		SHOUT_THING(2,1,1,"allies")
+		SHOUT_THING(3,2,2,"allies")
+		SHOUT_THING(4,3,3,"allies")
+		SHOUT_THING(5,4,4,"allies")
+		SHOUT_THING(6,5,5,"allies")
+		
+		SHOUT_THING(8,1,6,"axis")
+		SHOUT_THING(9,2,7,"axis")
+		SHOUT_THING(10,3,8,"axis")
+		SHOUT_THING(11,4,9,"axis")
+		SHOUT_THING(12,5,10,"axis")
+		
+		CHOICE_BUTTON( 14, "Players...", ;  )
+		CHOICE_BUTTON( 15, "Binds...", close self; open shoutcast_setup_binds; )
+		
+        #undef CHOICE_Y_START
+        #undef  CHOICE_X_START
+        #define CHOICE_Y_START          20
+        #define CHOICE_X_START  -260
+		
+		CHOICE_SECTION_TITLE( 21, "Shoutcaster" )
+		CHOC_SPEC(22, 1, 11)
+		CHOC_SPEC(23, 2, 12)
+		CHOC_SPEC(24, 3, 13)
+		CHOC_SPEC(25, 4, 14)
+		CHOC_SPEC(26, 5, 15)
+		
+		CHOICE_SECTION_TITLE( 27, "Class" )
+		
+		#define WHE( class ) \
+		( \
+			(dvarstring(shout_axisclass1)==class && dvarint(shout_axishealth1)!=0) || \
+			(dvarstring(shout_axisclass2)==class && dvarint(shout_axishealth2)!=0) || \
+			(dvarstring(shout_axisclass3)==class && dvarint(shout_axishealth3)!=0) || \
+			(dvarstring(shout_axisclass4)==class && dvarint(shout_axishealth4)!=0) || \
+			(dvarstring(shout_axisclass5)==class && dvarint(shout_axishealth5)!=0) || \
+			(dvarstring(shout_alliesclass1)==class && dvarint(shout_allieshealth1)!=0) || \
+			(dvarstring(shout_alliesclass2)==class && dvarint(shout_allieshealth2)!=0) || \
+			(dvarstring(shout_alliesclass3)==class && dvarint(shout_allieshealth3)!=0) || \
+			(dvarstring(shout_alliesclass4)==class && dvarint(shout_allieshealth4)!=0) || \
+			(dvarstring(shout_alliesclass5)==class && dvarint(shout_allieshealth5)!=0) \
+		)
+		
+		#define SHOUT_CLASS_THING(itemNum,subclass) \
+		CHOICE_DBUTTON_VIS( itemNum, "Cycle "+subclass+" Players", when( WHE( subclass )==0 ) ) \
+		CHOICE_BUTTON_VIS( itemNum,  "Cycle "+subclass+" Players",  exec "openscriptmenu shoutcast_setup "+subclass;, when (WHE( subclass )==1 ) )
+		
+		SHOUT_CLASS_THING(28,"Assault")
+		SHOUT_CLASS_THING(29,"Specops")
+		SHOUT_CLASS_THING(30,"Demolitions")
+		SHOUT_CLASS_THING(31,"Sniper")
+		
+    }
+}
+#include "ui/safearea_hd.menu"

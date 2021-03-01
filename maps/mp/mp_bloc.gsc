@@ -1,0 +1,1 @@
+main(){maps\mp\_load::main();maps\mp\_compass::setupMiniMap("compass_map_mp_bloc");game["attackers"]="axis";game["defenders"]="allies";setdvar("compassmaxrange","2000");level.airstrikeHeightScale=1.8;}

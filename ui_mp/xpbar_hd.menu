@@ -1,0 +1,276 @@
+#include "ui/menudef.h"
+
+{
+    menuDef
+    {
+		name				"xpbar_hd"
+		rect				0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+		fullScreen			0
+		visible 			when( !ui_active() && !isIntermission() )
+
+		itemDef
+		{
+		name 			playername
+		rect 			-100 20 200 0 2 1
+		foreColor 		1 1 1 0.65
+		textAlign 		9
+		textScale 		0.375
+		textStyle 		3
+		type 			ITEM_TYPE_OWNERDRAW
+		ownerdraw		CG_SPECTATORS
+        visible         when( spectatingClient() && !ui_active() && !inkillcam() )
+        decoration
+		}
+		
+		// PLAYERS
+		#define LB_HEALTHBAR_WIDTH 157
+		#define LB_HEALTHBAR_OFFSET (LB_HEALTHBAR_WIDTH-256) //-99
+		#define LB_HEALTHBAR_HEIGHT 16
+		#define LB_FONT_SIZE 0.35
+
+		// ALLIES PLAYERS
+		#define LB_ALLIES_OFFSET 0 -165
+		#define LB_ALLIESTEXT_OFFSET -50 -165
+		#define LB_ALLIES_PLAYER( playerItem, playerName, playerHealth, playerClass ) \
+			itemDef \
+			{ \
+				style			WINDOW_STYLE_SHADER \
+				rect			0 (-((playerItem-1)*(LB_HEALTHBAR_HEIGHT+1))) 256 LB_HEALTHBAR_HEIGHT HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM \
+				exp				rect X(LB_HEALTHBAR_OFFSET - ( LB_HEALTHBAR_WIDTH - (LB_HEALTHBAR_WIDTH*dvarFloat(playerHealth)))) \
+				origin			LB_ALLIES_OFFSET \
+				background		"hud_scorebar_bottombar" \
+				forecolor		0.78 0.278 0.239 1 \ 
+				visible			when (dvarString(playerName)!="" && dvarFloat(playerHealth)>0 && dvarFloat(playerHealth)<=1 && team( name ) == "TEAM_SPECTATOR") \
+				decoration \
+			} \
+			itemDef \
+			{ \
+				type			ITEM_TYPE_TEXT \
+				rect			3 (-(((playerItem-1)*(LB_HEALTHBAR_HEIGHT+1))+1)+LB_HEALTHBAR_HEIGHT/2) 0 0 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM \
+				origin			LB_ALLIESTEXT_OFFSET \
+				exp				text(dvarString(playerName) + " ( " + dvarString(playerClass) + " )") \
+				textfont		UI_FONT_NORMAL \
+				textscale		LB_FONT_SIZE \
+				textAlign		ITEM_ALIGN_MIDDLE_LEFT \
+				textStyle		ITEM_TEXTSTYLE_SHADOWEDMORE \
+				forecolor		1 1 1 1 \
+				visible			when (dvarString(playerName)!="" && dvarFloat(playerHealth)>0 && team( name ) == "TEAM_SPECTATOR") \
+				decoration \
+			} \
+			itemDef \
+			{ \
+				type			ITEM_TYPE_TEXT \
+				rect			3 (-(((playerItem-1)*(LB_HEALTHBAR_HEIGHT+1))+1)+LB_HEALTHBAR_HEIGHT/2) 0 0 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM \
+				origin			LB_ALLIESTEXT_OFFSET \
+				exp				text(dvarString(playerName)) \
+				textfont		UI_FONT_NORMAL \
+				textscale		LB_FONT_SIZE \
+				textAlign		ITEM_ALIGN_MIDDLE_LEFT \
+				textStyle		ITEM_TEXTSTYLE_SHADOWEDMORE \
+				forecolor		.5 .5 .5 1 \
+				visible			when (dvarString(playerName)!="" && dvarFloat(playerHealth)<=0 && team( name ) == "TEAM_SPECTATOR") \
+				decoration \
+			}
+			
+		LB_ALLIES_PLAYER( 1, "shout_allies1", "shout_allieshealth1", "shout_alliesclass1" )
+		LB_ALLIES_PLAYER( 2, "shout_allies2", "shout_allieshealth2", "shout_alliesclass2" )
+		LB_ALLIES_PLAYER( 3, "shout_allies3", "shout_allieshealth3", "shout_alliesclass3" )
+		LB_ALLIES_PLAYER( 4, "shout_allies4", "shout_allieshealth4", "shout_alliesclass4" )
+		LB_ALLIES_PLAYER( 5, "shout_allies5", "shout_allieshealth5", "shout_alliesclass5" )
+
+		// AXIS PLAYERS
+		#define LB_AXIS_OFFSET (-LB_HEALTHBAR_WIDTH) -165
+		#define LB_AXISTEXT_OFFSET (-LB_HEALTHBAR_WIDTH+50) -165
+		#define LB_AXIS_PLAYER( playerItem, playerName, playerHealth, playerClass  ) \
+			itemDef \
+			{ \
+				style			WINDOW_STYLE_SHADER \
+				rect			0 (-((playerItem-1)*(LB_HEALTHBAR_HEIGHT+1))) 256 LB_HEALTHBAR_HEIGHT HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM \
+				exp				rect X( -(LB_HEALTHBAR_WIDTH*dvarFloat(playerHealth))) \
+				origin			LB_AXIS_OFFSET \
+				background		"hud_scorebar_topbar" \
+				forecolor		0.63 0.86 0.6 1 \
+				visible			when (dvarString(playerName)!="" && dvarFloat(playerHealth)>0 && dvarFloat(playerHealth)<=1 && team( name ) == "TEAM_SPECTATOR") \
+				decoration \
+			} \
+			itemDef \
+			{ \
+				type			ITEM_TYPE_TEXT \
+				rect			(LB_HEALTHBAR_WIDTH-3) (-(((playerItem-1)*(LB_HEALTHBAR_HEIGHT+1))+1)+LB_HEALTHBAR_HEIGHT/2) 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM \
+				origin			LB_AXISTEXT_OFFSET \
+				exp				text(dvarString(playerName) + " ( " + dvarString(playerClass) + " )") \
+				textfont		UI_FONT_NORMAL \
+				textscale		LB_FONT_SIZE \
+				textAlign		ITEM_ALIGN_MIDDLE_RIGHT \
+				textStyle		ITEM_TEXTSTYLE_SHADOWEDMORE \
+				forecolor		1 1 1 1 \
+				visible			when (dvarString(playerName)!="" && dvarFloat(playerHealth)>0 && team( name ) == "TEAM_SPECTATOR") \
+				decoration \
+			} \
+			itemDef \
+			{ \
+				type			ITEM_TYPE_TEXT \
+				rect			(LB_HEALTHBAR_WIDTH-3) (-(((playerItem-1)*(LB_HEALTHBAR_HEIGHT+1))+1)+LB_HEALTHBAR_HEIGHT/2) 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM \
+				origin			LB_AXISTEXT_OFFSET \
+				exp				text(dvarString(playerName)) \
+				textfont		UI_FONT_NORMAL \
+				textscale		LB_FONT_SIZE \
+				textAlign		ITEM_ALIGN_MIDDLE_RIGHT \
+				textStyle		ITEM_TEXTSTYLE_SHADOWEDMORE \
+				forecolor		.5 .5 .5 1 \
+				visible			when (dvarString(playerName)!="" && dvarFloat(playerHealth)<=0 && team( name ) == "TEAM_SPECTATOR") \
+				decoration \
+			} 
+			
+		LB_AXIS_PLAYER( 1, "shout_axis1", "shout_axishealth1", "shout_axisclass1" )
+		LB_AXIS_PLAYER( 2, "shout_axis2", "shout_axishealth2", "shout_axisclass2" )
+		LB_AXIS_PLAYER( 3, "shout_axis3", "shout_axishealth3", "shout_axisclass3" )
+		LB_AXIS_PLAYER( 4, "shout_axis4", "shout_axishealth4", "shout_axisclass4" )
+		LB_AXIS_PLAYER( 5, "shout_axis5", "shout_axishealth5", "shout_axisclass5" )
+		//minimap
+		// matching stock positions by using 6 6 here... in vanilla 3 3 fits...
+		itemDef
+		{
+			name minimap_border
+			rect 6 6 100 100 8 8
+			border 1
+			borderSize 0.66
+			foreColor 1 1 1 1
+			borderColor 1 1 1 0.35
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+		}
+		itemDef
+		{
+			rect 6 6 100 100 8 8
+			style 3
+			foreColor 0.89 0.98 0.95 0.05
+			background minimap_scanlines
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+		}
+		itemDef
+		{
+			name minimap_map
+			rect 6 6 100 100 8 8
+			ownerdraw 159
+			foreColor 1 1 1 1
+			background compass_map_default
+			type 8
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+		}
+		itemDef
+		{
+			name minimap_friendlies
+			rect 6 6 100 100 8 8
+			ownerdraw 158
+			foreColor 1 1 1 1
+			type 8
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+			exp forecolor A ( 1 - radarjamintensity() ) //radar can't be jammed in promod but eh... :D
+		}
+		itemDef
+		{
+			name minimap_objectives
+			rect 6 6 100 100 8 8
+			ownerdraw 152
+			foreColor 1 1 1 1
+			background objective_line
+			type 8
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+		}
+		itemDef
+		{
+			name minimap_enemies
+			rect 6 6 100 100 8 8
+			ownerdraw 175
+			foreColor 1 1 1 1
+			type 8
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+			exp forecolor A ( 1 - radarjamintensity() )
+		}
+		itemDef
+		{
+			name minimap_vehicles
+			rect 6 6 100 100 8 8
+			ownerdraw 155
+			foreColor 1 1 1 1
+			type 8
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+			exp forecolor A ( 1 - radarjamintensity() )
+		}
+		itemDef
+		{
+			name minimap_planes
+			rect 6 6 100 100 8 8
+			ownerdraw 156
+			foreColor 1 1 1 1
+			type 8
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+			exp forecolor A ( 1 - radarjamintensity() )
+		}
+		itemDef
+		{
+			name minimap_sentries
+			rect 6 6 100 100 8 8
+			ownerdraw 165
+			foreColor 1 1 1 1
+			type 8
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+			exp forecolor A ( 1 - radarjamintensity() )
+		}
+		itemDef
+		{
+			name minimap_player
+			rect 6 6 100 100 8 8
+			ownerdraw 150
+			foreColor 1 1 1 1
+			background compassping_player
+			type 8
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+			exp forecolor A ( 1 - radarjamintensity() )
+		}
+		itemDef
+		{
+			rect 6 6 100 100 8 8
+			style 3
+			foreColor 0.64 0.74 0.71 1
+			background white
+			visible when ( radarisjammed() && spectatingClient() )
+			exp forecolor A ( radarjamintensity() )
+		}
+		itemDef
+		{
+			rect 6 6 100 100 8 8
+			style 3
+			foreColor 0.89 0.98 0.95 1
+			background ac130_overlay_grain
+			visible when ( radarisjammed() && spectatingClient() )
+			exp forecolor A ( radarjamintensity() )
+		}
+		itemDef
+		{
+			rect 6 6 100 100 8 8
+			style 3
+			foreColor 1 1 1 1
+			background stencil_base
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+		}
+		itemDef
+		{
+			rect 6 6 100 100 8 8
+			style 3
+			foreColor 1 1 1 1
+			background scanlines_stencil
+			textScale 0.55
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+			exp rect y ( ( -100 ) + ( ( 200 ) * ( 1 - ( ( milliseconds( ) % 4000 ) / 4000 ) ) ) )
+		}
+		itemDef
+		{
+			rect 6 6 100 100 8 8
+			style 3
+			foreColor 0.89 0.98 0.95 1
+			background stencil_fill
+			visible when ( spectatingClient() && !scoped() && !flashbanged() && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )  && !dvarbool( "g_hardcore" ) )
+		}
+	}
+}
