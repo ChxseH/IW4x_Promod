@@ -42,7 +42,7 @@
 				#define BACKGROUND_IW4
 				#define DISABLE_SIDEBAR
 				//#define BACKGROUND_FULL fucked
-                #include "ui_mp/bg.inc" // iw4x kinda menu?
+                #include "ui_mp/bg.inc" // if you comment this out the original menu appears behind
 				
                 #define BACK_OPEN	;
 				#include "ui_mp/navcontrols.inc" // removes shader boxes and whatnot -- could be useful?

@@ -113,7 +113,8 @@ PC_OPTIONS_BUTTON(1, "buttonAudio", "@MENU_AUDIO", PC_OPTIONS_BUTTON_LEFT_ACTION
 PC_OPTIONS_BUTTON(2, "buttonControls", "@MENU_CONTROLS", PC_OPTIONS_BUTTON_LEFT_ACTION(open "pc_options_controls";))
 PC_OPTIONS_BUTTON(3, "buttonMulti", "@MENU_MULTIPLAYER", PC_OPTIONS_BUTTON_LEFT_ACTION(open "pc_options_multi";))
 PC_OPTIONS_BUTTON(4, "buttonGame", "@MENU_GAME", PC_OPTIONS_BUTTON_LEFT_ACTION(open "pc_options_game";))
-PC_OPTIONS_BUTTON(5, "buttonPromod", "Promod", PC_OPTIONS_BUTTON_LEFT_ACTION(open "options_promod_binds";))
+//PC_OPTIONS_BUTTON(5, "buttonPromod", "Promod", PC_OPTIONS_BUTTON_LEFT_ACTION(open "options_promod_binds";))
+PC_OPTIONS_BUTTON_RAW(5, "buttonPromod", "Promod", open "options_promod_binds";, "@NULL_EMPTY", when (dvarBool("cl_ingame") || dvarBool("sv_running") || inlobby()), 1)
 
 //MENU_CHOICE_HORIZONTAL_LINE(5)
 //PC_OPTIONS_BUTTON_RAW(5, "buttonDefaults", "@MENU_RESET_SYSTEM_DEFAULTS", open "options_graphics_defaults";, "@NULL_EMPTY", when (dvarBool("cl_ingame") || dvarBool("sv_running") || inlobby()), 1)
