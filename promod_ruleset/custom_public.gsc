@@ -138,8 +138,8 @@ main()
 	setDvar( "weap_allow_cheytac", 1 );
 
 	/*setDvar( "weap_allow_peacekeeper", 1 );*/
-	setDvar( "weap_allow_ak74u", 0 );
-	setDvar( "weap_allow_m40a3", 0 );
+	setDvar( "weap_allow_ak74u", 1 );
+	setDvar( "weap_allow_m40a3", 1 );
 
 	
 	setDvar( "weap_allow_beretta", 1 );
