@@ -1,0 +1,34 @@
+blurWorld               7.0
+#undef BACK_OPEN
+#define BACK_OPEN exec "wait";
+
+#undef CHOICE_X_START
+#define CHOICE_X_START          -324
+
+#undef CHOICE_Y_START
+#define CHOICE_Y_START  -20 //82
+
+#undef CHOICE_HORIZONTAL_ALIGN
+#define CHOICE_HORIZONTAL_ALIGN HORIZONTAL_ALIGN_CENTER
+
+#undef CHOICE_VERTICAL_ALIGN
+#define CHOICE_VERTICAL_ALIGN VERTICAL_ALIGN_TOP
+
+#undef CHOICE_TEXTALIGN
+#define CHOICE_TEXTALIGN        ITEM_ALIGN_MIDDLE_RIGHT
+
+#undef CHOICE_TEXT_OFFSET_X
+#define CHOICE_TEXT_OFFSET_X    -15
+
+#undef TEXTSIZE_BUTTON_PC
+#define TEXTSIZE_BUTTON_PC      0.33
+
+#undef CHOICE_SIZE_Y
+#define CHOICE_SIZE_Y           20
+
+
+#undef  CHOICE_SIZE_X
+#define CHOICE_SIZE_X           180
+
+#undef  SECTION_X_OFFSET
+#define SECTION_X_OFFSET        60

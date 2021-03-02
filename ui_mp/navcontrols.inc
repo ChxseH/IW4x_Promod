@@ -13,7 +13,7 @@
 			textStyle 3
 			textFont 1
 			text "@MENU_BACK"
-			visible 1
+			visible 1 // back button in bottom
 			mouseEnter
 			{
 				play mouse_over;
@@ -32,7 +32,7 @@
 			foreColor 0.9 0.9 0.95 0.175
 			background white
 			decoration 
-			visible 1
+			visible 0 // part of the shit that i dont want
 		}
 		itemDef
 		{
@@ -41,7 +41,7 @@
 			foreColor 0.9 0.9 0.95 0.175
 			background button_highlight_end
 			decoration 
-			visible 1
+			visible 0 // rest of what i dont want
 		}
 		itemDef
 		{
