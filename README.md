@@ -1,4 +1,4 @@
-# Promod for IW4x
+# Promod for IW4x [![GitHub stars](https://img.shields.io/github/stars/ChxseH/IW4x_Promod)](https://github.com/ChxseH/IW4x_Promod/stargazers)
 Basically what it says on the tin.
 
 Notes:
